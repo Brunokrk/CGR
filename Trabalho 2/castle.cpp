@@ -5,29 +5,179 @@ static GLfloat xRot = 0.0f;
 static GLfloat yRot = 0.0f;
 //Estratégia é criar uma função para desenhar todas as torres
 void bigTower(GLUquadricObj *quad, GLfloat x, GLfloat y, GLfloat z);
+void smallTower(GLUquadricObj *quad, GLfloat x, GLfloat y, GLfloat z);
 
 void castle(){
-	GLUquadricObj *pObj;    
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glPushMatrix();
-	glTranslatef(0.0f, -1.0f, -5.0f); 
-	glRotatef(xRot, 1.0f, 0.0f, 0.0f); 
-	glRotatef(yRot, 0.0f, 1.0f, 0.0f); 
+	GLUquadricObj *pObj;
+	glEnable(GL_DEPTH_TEST);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(1.0, 1.0, 1.0, 1.0);
+	
+	glPushMatrix();
+	
+	glTranslatef(0.0f,-1.0f,-5.0f);
+	glRotatef(xRot, 1.0f, 0.0f, 0.0f);
+	glRotatef(yRot, 0.0f, 1.0f, 0.0f);
+    
     pObj = gluNewQuadric();
-    gluQuadricNormals(pObj, GLU_SMOOTH);
+	gluQuadricDrawStyle(pObj, GLU_FILL);
+	gluQuadricNormals(pObj, GLU_SMOOTH);
+	//Para rotacionar da forma imaginada, talvez seja mágica
+	//mas fez o esperado
+	glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+	
+    //torre central
     glPushMatrix();
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f); 
-    
-    
     glColor4f(1.0f, 1.0f, 0.0f, 0.0f);
     bigTower(pObj, 0.0f, 1.5f, 1.0f);
     glPopMatrix();
     glPushMatrix();
     
+    //torre esquerda frente
+    glColor4f(1.0f, 1.0f, 0.0f, 0.0f);
+	smallTower(pObj, -1.5f, 0.0f, 1.0f);
+    glPopMatrix();
+    glPushMatrix();
+    
+    //torre direita frente
+    glColor4f(1.0f, 1.0f, 0.0f, 0.0f);
+    smallTower(pObj, 1.5f, 0.0f, 1.0f);
+    glPopMatrix();
+    glPushMatrix();
+    
+    //torre direita atrás
+    glColor3f(1.0f, 0.0f, 1.0f);
+    smallTower(pObj, 1.5f, 3.0f, 1.0f);
+    glPopMatrix();
+    glPushMatrix();
+    
+    //torre esquerda atrás
+    glColor3f(1.0f, 0.0f, 1.0f);
+    smallTower(pObj, -1.5f, 3.0f, 1.0f);
+    glPopMatrix();
+    glPushMatrix();
+    
+    
+    //base
+    glPushMatrix();
+    glColor4f(1.0f, 0.5f, 0.0f, 0.0f);
+    glTranslatef(0.0f, 1.5f, 0.125f);
+    glScalef(6.0f, 6.0f, 0.125f);
+    glutSolidCube(1.0f);
+    glPopMatrix();
+    
+    
+    //Muralhas e portão
+    
+    //muralha frente direita
+    glPushMatrix();
+    glTranslatef(1.0, 0.0, 0.5f);
+    glColor3f(0.2f, 0.2f, 0.2f);
+    glScalef(1.2f, 0.125f, 0.6f);
+    glutSolidCube(1.0f);
+    glPopMatrix();
+    
+    //muralha frente esquerda
+    glPushMatrix();
+    glTranslatef(-1.0, 0.0, 0.5f);
+    glColor3f(0.2f, 0.2f, 0.2f);
+    glScalef(1.2f, 0.125f, 0.6f);
+    glutSolidCube(1.0f);
+    glPopMatrix();
+    
+    //topo muralha
+    glPushMatrix();
+    glTranslatef(1.0, 0.0, 0.9f);
+    glColor3f(0.5f, 0.5f, 0.5f);
+    glScalef(1.2f, 0.250f, 0.2f);
+    glutSolidCube(1.0f);
+    glPopMatrix();
+    
+    glPushMatrix();
+    glTranslatef(-1.0, 0.0, 0.9f);
+    glColor3f(0.5f, 0.5f, 0.5f);
+    glScalef(1.2f, 0.250f, 0.2f);
+    glutSolidCube(1.0f);
+    glPopMatrix();
+    
+    
+    //Pilar Portão esquerdo
+    glPushMatrix();
+    glTranslatef(-0.4, 0.0, 0.5f);
+    glColor3f(0.2f, 0.2f, 0.2f);
+    glScalef(0.3f, 0.4f, 1.2f);
+    glutSolidCube(1.0f);
+    glPopMatrix();
+    
+    //Pilar Portão direito
+    glPushMatrix();
+    glTranslatef(0.4, 0.0, 0.5f);
+    glColor3f(0.2f, 0.2f, 0.2f);
+    glScalef(0.3f, 0.4f, 1.2f);
+    glutSolidCube(1.0f);
+    glPopMatrix();
+    
+    //topo portão
+    glPushMatrix();
+    glTranslatef(0.0, 0.0, 1.2f);
+    glColor3f(0.2f, 0.2f, 0.2f);
+    glScalef(1.1f, 0.4f, 0.3f);
+    glutSolidCube(1.0f);
+    glPopMatrix();
+    
+    //portão
+    glPushMatrix();
+    glTranslatef(0.0, 0.0, 0.5f);
+    glColor3f(0.1f, 0.1f, 0.0f);
+    glScalef(0.6f, 0.05f, 1.1f);
+    glutSolidCube(1.0f);
+    glPopMatrix();
+       
+    glPushMatrix();
+    glTranslatef(0.0, 3.0, 0.5f);
+    glColor3f(0.2f, 0.2f, 0.2f);
+    glScalef(3.0f, 0.125f, 0.6f);
+    glutSolidCube(1.0f);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0.0, 3.0, 0.9f);
+    glColor3f(0.5f, 0.5f, 0.5f);
+    glScalef(3.0f, 0.250f, 0.2f);
+    glutSolidCube(1.0f);
+    glPopMatrix();
+    
+    
+	glPushMatrix();
+    glTranslatef(1.5, 1.5, 0.5f);
+    glColor3f(0.2f, 0.2f, 0.2f);
+    glScalef(0.125f, 3.0f, 0.6f);
+    glutSolidCube(1.0f);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(1.5, 1.5, 0.9f);
+    glColor3f(0.5f, 0.5f, 0.5f);
+    glScalef(0.250f, 3.0f, 0.2f);
+    glutSolidCube(1.0f);
+    glPopMatrix();
     
     
     
-    
+    glPushMatrix();
+    glTranslatef(-1.5, 1.5, 0.5f);
+    glColor3f(0.2f, 0.2f, 0.2f);
+    glScalef(0.125f, 3.0f, 0.6f);
+    glutSolidCube(1.0f);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-1.5, 1.5, 0.9f);
+    glColor3f(0.5f, 0.5f, 0.5f);
+    glScalef(0.250f, 3.0f, 0.2f);
+    glutSolidCube(1.0f);
+    glPopMatrix();
+
     
     glEnd();
     glPopMatrix();
@@ -38,10 +188,21 @@ void castle(){
 void bigTower(GLUquadricObj *quad, GLfloat x, GLfloat y, GLfloat z){
 	glColor4f(1.0f, 1.0f, 0.0f, 0.0f);
 	glTranslatef(x, y, z-0.8f);
-    gluCylinder(quad, 0.3f, 0.3f, 1.1f, 26, 13);
+	gluCylinder(quad, 0.5f, 0.5f, 2.1f, 26, 13);
     glColor3f(1.0f, 0.5f, 0.0f);
+	glTranslatef(0.0f, 0.0f, 2.0f);
+    gluCylinder(quad, 0.7f, 0.0f, 1.0f, 26, 13);
+}
+
+void smallTower(GLUquadricObj *quad, GLfloat x, GLfloat y, GLfloat z){
+	glColor4f(1.0f, 1.0f, 0.0f, 0.0f);
+	glTranslatef(x, y, z-0.8f);
+	gluCylinder(quad, 0.3f, 0.3f, 1.1f, 26, 13);
+	glColor3f(1.0f, 0.5f, 0.0f);
 	glTranslatef(0.0f, 0.0f, 1.0f);
-    gluCylinder(quad, 0.4f, 0.0f, 0.5f, 26, 13);
+	gluCylinder(quad, 0.4f, 0.0f, 0.5f, 26, 13);
+	
+	
 }
 
 void ChangeSize(int w, int h){
@@ -118,7 +279,7 @@ void SpecialKeys(int key, int x, int y){
 int main(int argc, char *argv[]){
 	glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(800, 600);
+    glutInitWindowSize(1200, 800);
     glutCreateWindow("TC2 - Castelo - Bruno Marchi Pires");
     glutReshapeFunc(ChangeSize);
     glutSpecialFunc(SpecialKeys);
