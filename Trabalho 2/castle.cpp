@@ -62,7 +62,7 @@ void castle(){
     glPushMatrix();
     glColor4f(1.0f, 0.5f, 0.0f, 0.0f);
     glTranslatef(0.0f, 1.5f, 0.125f);
-    glScalef(6.0f, 6.0f, 0.125f);
+    glScalef(6.0f, 6.0f, 0.3f);
     glutSolidCube(1.0f);
     glPopMatrix();
     
@@ -192,6 +192,7 @@ void bigTower(GLUquadricObj *quad, GLfloat x, GLfloat y, GLfloat z){
     glColor3f(1.0f, 0.5f, 0.0f);
 	glTranslatef(0.0f, 0.0f, 2.0f);
     gluCylinder(quad, 0.7f, 0.0f, 1.0f, 26, 13);
+    glTranslatef(0.0f, 0.0f, 1.0f);
 }
 
 void smallTower(GLUquadricObj *quad, GLfloat x, GLfloat y, GLfloat z){
@@ -201,7 +202,6 @@ void smallTower(GLUquadricObj *quad, GLfloat x, GLfloat y, GLfloat z){
 	glColor3f(1.0f, 0.5f, 0.0f);
 	glTranslatef(0.0f, 0.0f, 1.0f);
 	gluCylinder(quad, 0.4f, 0.0f, 0.5f, 26, 13);
-	
 	
 }
 
