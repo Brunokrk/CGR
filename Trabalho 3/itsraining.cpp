@@ -8,7 +8,7 @@
 //de sistema de partículas
 
 //O ínicio da chuva ta estranho, com muitos riscos alinhados
-
+//provalvemente se arruma isso mudando os valores de "setParticles()"
 
 #define PARTICLES 7500
 
@@ -31,7 +31,7 @@ void setParticles(int n){
 	conj_particulas[n].z = (float) (rand() % 15);
 	conj_particulas[n].y = 15.0;
 	conj_particulas[n].velocity = 0.0001;
-	conj_particulas[n].gravity = -0.0009;
+	conj_particulas[n].gravity = -0.00009;
 }
 
 void initParticles(){
