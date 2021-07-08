@@ -7,8 +7,10 @@
 //O objetivo é tentar fazer uma tela de chuva utilizando conceitos
 //de sistema de partículas
 
+//O ínicio da chuva ta estranho, com muitos riscos alinhados
 
-#define PARTICLES 3000
+
+#define PARTICLES 7500
 
 typedef struct{
 	bool isSetted;
@@ -25,8 +27,8 @@ void setParticles(int n){
 	conj_particulas[n].isSetted = true;
 	conj_particulas[n].lifeTime = 2.0;
 	conj_particulas[n].timeTaken = (float)(rand()%100)*0.001; 
-	conj_particulas[n].x = (float)(rand()%40) - 10;
-	conj_particulas[n].z = (float) (rand() % 20) - 10;
+	conj_particulas[n].x = (float)(rand()%50);
+	conj_particulas[n].z = (float) (rand() % 15);
 	conj_particulas[n].y = 15.0;
 	conj_particulas[n].velocity = 0.0001;
 	conj_particulas[n].gravity = -0.0009;
