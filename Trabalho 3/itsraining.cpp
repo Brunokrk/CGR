@@ -4,13 +4,12 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 
+//Alunos: 	Bruno Marchi Pires - Guilherme Araújo Lira de Menezes
+
 //O objetivo é tentar fazer uma tela de chuva utilizando conceitos
 //de sistema de partículas
 
-//O ínicio da chuva ta estranho, com muitos riscos alinhados
-//provalvemente se arruma isso mudando os valores de "setParticles()"
-
-#define PARTICLES 7500
+#define PARTICLES 5500
 
 typedef struct{
 	bool isSetted;
@@ -30,8 +29,8 @@ void setParticles(int n){
 	conj_particulas[n].x = (float)(rand()%50);
 	conj_particulas[n].z = (float) (rand() % 15);
 	conj_particulas[n].y = 15.0;
-	conj_particulas[n].velocity = 0.0001;
-	conj_particulas[n].gravity = -0.00009;
+	conj_particulas[n].velocity = 0.00009;
+	conj_particulas[n].gravity = -0.0005;
 }
 
 void initParticles(){
@@ -51,7 +50,7 @@ void itsraining(){
 			//glColor4f(0.0f, 1.0f, 1.0f, 1.0f);
 			glColor3f(0.2f, 0.4f, 1.0f);
 			glBegin(GL_LINES);
-			glVertex3f(xAux-1, yAux, zAux);
+			glVertex3f(xAux-0.7, yAux, zAux);
 			glVertex3f(xAux, yAux+1, zAux);
 			glEnd();
 			
@@ -107,7 +106,7 @@ int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DEPTH | GLUT_RGB | GLUT_DOUBLE);
     glutInitWindowSize(800, 600);
-    glutCreateWindow("TC3 - Partículas - Bruno Marchi Pires");
+    glutCreateWindow("TC3 - Partículas - Bruno Pires - Guilherme Araújo");
     
     initParticles();
     
