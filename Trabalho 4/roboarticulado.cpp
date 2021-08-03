@@ -3,7 +3,7 @@
 #include <GL/glut.h>
 
 enum ANIMATION {STOP, WALK, ACENAR} action = STOP;
-float leftShoulder = 0.0, leftHand = 0.0, leftLeg = 0.0;
+float leftShoulder = 0.0, leftHand = 0.0, leftLeg = 0.0, leftForearm = 0.0;
 float rightShoulder = 0.0, rightHand = 0.0, rightLeg = 0.0;
 
 void buildRobot(void) {
@@ -93,7 +93,7 @@ void buildRobot(void) {
             //Shoulder Joint
             	glColor3f(1.0f, 1.0f, 1.0f);
             	glTranslatef(0.0f, 35.0f, 35.0f);
-                glRotatef(leftShoulder, 0.0, 1.0, 0.0);
+                glRotatef(leftShoulder, 1.0, 0.0, 0.0);
             	gluSphere(pObj, 10.0f, 50,30);
             //Arm 
             	glColor3f(1.0f, 0.0f, 1.0f);
@@ -105,6 +105,7 @@ void buildRobot(void) {
                 //Forearm Joints
                 glColor3f(1.0f, 1.0f, 1.0f);
             	glTranslatef(0.0f, 0.0f, -15.0f);
+            	glRotatef(leftForearm, 1.0, 0.0, 0.0);
             	gluSphere(pObj, 5.0f, 50, 30);
                 //Forearm
                 glColor3f(1.0f, 0.0f, 1.0f);
@@ -258,7 +259,8 @@ void animation(ANIMATION action) {
             if(speed == 0) break;
             break;
         case ACENAR:
-        	leftShoulder = -200.0 * sin(speed * (0.01745/2));  
+        	leftShoulder = 100.0 * sin(speed * (0.01745/2)); 
+			leftForearm = 100 * sin(speed * (0.01745/2));
             speed = fmod(speed + 8.0, 360.0); 
             break;
     }
