@@ -2,9 +2,10 @@
 #include <math.h>
 #include <GL/glut.h>
 
-enum ANIMATION {STOP, WALK, ACENAR} action = STOP;
+enum ANIMATION {STOP, WALK, HAND_WAVE} action = STOP;
 float leftShoulder = 0.0, leftHand = 0.0, leftLeg = 0.0, leftForearm = 0.0;
 float rightShoulder = 0.0, rightHand = 0.0, rightLeg = 0.0;
+float vector_x = 0.0, vector_y = 1.0, vector_z = 0.0;
 
 void buildRobot(void) {
 
@@ -25,7 +26,7 @@ void buildRobot(void) {
             //Joint
             glColor3f(1.0f, 1.0f, 1.0f);
             glTranslatef(0.0f, -12.5f, -40.0f);
-            glRotatef(leftLeg, 0.0, 1.0, 0.0);
+            glRotatef(leftLeg, vector_x, vector_y, vector_z);
             gluSphere(pObj, 5.0f, 50, 30);
             //Leg Part 1
             glColor3f(1.0f, 0.0f, 1.0f);
@@ -59,7 +60,7 @@ void buildRobot(void) {
             //Joint
             glColor3f(1.0f, 1.0f, 1.0f);
             glTranslatef(0.0f, 12.5f, -40.0f);
-            glRotatef(rightLeg, 0.0, 1.0, 0.0);
+            glRotatef(rightLeg, vector_x, vector_y, vector_z);
             gluSphere(pObj, 5.0f, 50, 30);
             //Leg Part 1
             glColor3f(1.0f, 0.0f, 1.0f);
@@ -93,7 +94,7 @@ void buildRobot(void) {
             //Shoulder Joint
             	glColor3f(1.0f, 1.0f, 1.0f);
             	glTranslatef(0.0f, 35.0f, 35.0f);
-                glRotatef(leftShoulder, 1.0, 0.0, 0.0);
+                glRotatef(leftShoulder, vector_x, vector_y, vector_z);
             	gluSphere(pObj, 10.0f, 50,30);
             //Arm 
             	glColor3f(1.0f, 0.0f, 1.0f);
@@ -105,7 +106,7 @@ void buildRobot(void) {
                 //Forearm Joints
                 glColor3f(1.0f, 1.0f, 1.0f);
             	glTranslatef(0.0f, 0.0f, -15.0f);
-            	glRotatef(leftForearm, 1.0, 0.0, 0.0);
+            	glRotatef(leftForearm, vector_x, vector_y, vector_z);
             	gluSphere(pObj, 5.0f, 50, 30);
                 //Forearm
                 glColor3f(1.0f, 0.0f, 1.0f);
@@ -115,7 +116,7 @@ void buildRobot(void) {
             	glScalef(1.0f/15.0f, 1.0f/15.0f, 1.0f/25.0f);
                 //Hand Joint
                 glColor3f(1.0f, 1.0f, 1.0f);
-                glRotatef(leftHand, 0.0, 1.0, 0.0);
+                glRotatef(leftHand, vector_x, vector_y, vector_z);
             	glTranslatef(0.0f, 0.0f, -15.0f);
             	gluSphere(pObj, 4.0f, 50, 30);
                 //Hand
@@ -131,7 +132,7 @@ void buildRobot(void) {
             //Shoulder Joint
             	glColor3f(1.0f, 1.0f, 1.0f);
             	glTranslatef(0.0f, -35.0f, 35.0f);
-                glRotatef(rightShoulder, 0.0, 1.0, 0.0);
+                glRotatef(rightShoulder, vector_x, vector_y, vector_z);
             	gluSphere(pObj, 10.0f, 50,30);
             //Arm Joint
             	glColor3f(1.0f, 0.0f, 1.0f);
@@ -153,7 +154,7 @@ void buildRobot(void) {
                 //Hand Joint
                 glColor3f(1.0f, 1.0f, 1.0f);
             	glTranslatef(0.0f, 0.0f, -15.0f);
-                glRotatef(rightHand, 0.0, 1.0, 0.0);
+                glRotatef(rightHand, vector_x, vector_y, vector_z);
             	gluSphere(pObj, 4.0f, 50, 30);
                 //Hand
                 glColor3f(1.0f, 0.0f, 1.0f);
@@ -205,26 +206,11 @@ void DrawScene(void) {
     glLightfv (GL_LIGHT0, GL_POSITION, light_pos);
     glEnable(GL_LIGHTING);
 
-    // Floor
-    /*
-    int i, j, c = 100;
-    for(i = -20; i <= 20; i++) {
-        for(j = -20; j <= 20; j++) {
-            glColor3f(1.0f, 1.0f, 1.0f);
-            glBegin(GL_QUADS);
-                glNormal3f(0,0,1);
-                glVertex3f(i * c, j * c, 0.0);
-                glVertex3f(i * c + c, j * c, 0.0);
-                glVertex3f(i * c + c, j * c + c, 0.0);
-                glVertex3f(i * c, j * c + c, 0.0);
-            glEnd();
-        }
-    }
-    */
 
     if(action == WALK) {
         position_x += fabs(3.0 * sin((70 + speed) * 0.01745));
         speed = fmod(speed + 8.0, 360.0);
+        
     }
     
     glTranslatef(position_x, 0.0, 85);
@@ -245,23 +231,41 @@ void SetupRC() {
     glEnable(GL_COLOR_MATERIAL);
 }
 
+void resetBody() {
+    leftShoulder = 0.0, leftHand = 0.0, leftLeg = 0.0, leftForearm = 0.0;
+    rightShoulder = 0.0, rightHand = 0.0, rightLeg = 0.0;
+}
+
 void animation(ANIMATION action) {
     static double speed = 0.0;
     switch(action) {
         case WALK:
+        	resetBody();
+            vector_x = 0.0;
+            vector_y = 1.0;
+            vector_z = 0.0;
             leftHand = 0.0;
+            resetBody();
             rightLeg = 20.0 * sin(speed * 0.01745);
             rightShoulder = -30.0 * sin(speed * 0.01745);
             leftLeg = -20.0 * sin(speed * 0.01745);
             leftShoulder = 30.0 * sin(speed * 0.01745); 
             speed = fmod(speed + 8.0, 360.0);
-        case STOP:
-            if(speed == 0) break;
+
             break;
-        case ACENAR:
+        case STOP:
+            resetBody();
+            if(speed == 0) break;
+            speed = 0.0;
+            break;
+        case HAND_WAVE:   
+            resetBody();         
+            vector_x = 1.0;
+            vector_y = 0.0;
+            vector_z = 0.0;
         	leftShoulder = 100.0 * sin(speed * (0.01745/2)); 
 			leftForearm = 100 * sin(speed * (0.01745/2));
-            speed = fmod(speed + 8.0, 360.0); 
+            speed = fmod(speed + 8.0, 360.0);
             break;
     }
 }
@@ -285,7 +289,8 @@ void keyboard(unsigned char key, int a, int b) {
             action = STOP;
             break;
         case 'a':
-        	action = ACENAR;
+        	action = HAND_WAVE;
+        	break;
     }
 }
 
@@ -300,7 +305,7 @@ int main(int argc, char*argv[]) {
     glutInit (&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(500, 500);
-    glutCreateWindow("Bruno Marchi Pires - Guilherme Araújo");
+    glutCreateWindow("Bruno Marchi Pires - Guilherme Ara?jo");
     glutDisplayFunc(DrawScene);
     glutReshapeFunc(ChangeSize);
     glutKeyboardFunc(keyboard);
