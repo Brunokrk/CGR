@@ -58,6 +58,7 @@ void itsraining(){
 			conj_particulas[counter].x += conj_particulas[counter].velocity;
 			conj_particulas[counter].y += conj_particulas[counter].velocity;
 			//Z não precisa
+			
 			//simulando uma gravidade duvidosa
 			conj_particulas[counter].velocity += conj_particulas[counter].gravity;
 			//matando partícula
@@ -112,7 +113,7 @@ int main(int argc, char** argv) {
     
     glutDisplayFunc(drawScene); 
     glutReshapeFunc(ChangeSize);
-    glutIdleFunc(glutPostRedisplay); //mágica
+    glutIdleFunc(glutPostRedisplay); 
     glutMainLoop();
     return 0;
 }

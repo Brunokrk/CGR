@@ -102,6 +102,7 @@ void buildRobot(void) {
             	glScalef(15.0f, 15.0f, 25.0f);
             	glutSolidCube(1.0f);
             	glScalef(1.0f/15.0f, 1.0f/15.0f, 1.0f/25.0f);
+            	
             glPushMatrix();
                 //Forearm Joints
                 glColor3f(1.0f, 1.0f, 1.0f);
@@ -126,6 +127,7 @@ void buildRobot(void) {
             	glutSolidCube(1.0f);
             	glScalef(1.0f/5.0f, 1.0f/15.0f, 1.0f/15.0f);
             glPopMatrix();
+            
         glPopMatrix();
         //Right Arm and Joints
         glPushMatrix();
