@@ -1,0 +1,5 @@
+Alunos: 
+	Bruno Marchi Pires
+	Guilherme Araújo Lira de Menezes
+
+Obs: O render com o cycles ficou um pouco desfocado, acredito que pela limitação da placa de vídeo do computador. Muitas vezes nem dava pra renderizar, o programa parava de funcionar e fechava. 
